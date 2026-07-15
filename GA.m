@@ -461,6 +461,13 @@ classdef (Abstract) GA
 
         % Inner product
 
+        function R = cdot(A, B)
+            %CDOT - Computes the Hestenes inner product of multivectors.
+
+            C = GA.getdominating_(A, B);
+            R = cdot_(C.cast(A), C.cast(B));
+        end
+
         function R = inner(A, B)
             %INNER - Computes the inner product of multivectors.
 
@@ -1051,6 +1058,7 @@ classdef (Abstract) GA
         hsmap_(A, n);
         hodgedual_(A);
         inner_(A, B);
+        cdot_(A, B);
         inverse_(A);
         inversedual_(A);
         inversehodgedual_(A);

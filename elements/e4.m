@@ -16,7 +16,7 @@ function e = e4(model)
 
     switch model
         case "CGA"
-            e = CGA(0, [1, 0, 0, 0, -0.5], 0, 0, 0, 0);
+            e = CGA(0, [-1, 0, 0, 0, 0.5], 0, 0, 0, 0);
         case "PGA"
 	    error('Cannot create no element as it does not exist in the PGA model. Type  GA.model(CGA)  to switch to the CGA model.')
         case "OGA"

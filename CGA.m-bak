@@ -1108,11 +1108,11 @@ rm = [
 	       ];
 M = [
  scal   -EI      E1      E2      E3     -EO     -E1I    -E2I    -E3I     EOI    -E12    -E13    -EO1    -E23    -EO2    -EO3     E12I    E13I    EO1I    E23I    EO2I    EO3I   -E123    EO12    EO13    EO23    E123I  -EO12I  -EO13I  -EO23I   EO123  -EO123I ;
- EO     scal     EO1     EO2     EO3    0      -EO1I   -EO2I   -EO3I    EO     -EO12   -EO13   0      -EO23   0      0       EO12I   EO13I  -EO1     EO23I  -EO2    -EO3    -EO123  0      0      0       EO123I -EO12   -EO13   -EO23   0       EO123  ;
+ EO     -EOI     EO1     EO2     EO3    0      -EO1I   -EO2I   -EO3I    EO     -EO12   -EO13   0      -EO23   0      0       EO12I   EO13I  -EO1     EO23I  -EO2    -EO3    -EO123  0      0      0       EO123I -EO12   -EO13   -EO23   0       EO123  ;
  E1     -E1I     scal    E12     E13     EO1    -EI     -E12I   -E13I   -EO1I   -E2     -E3      EO     -E123    EO12    EO13    E2I     E3I    -EOI     E123I  -EO12I  -EO13I  -E23    -EO2    -EO3    -EO123   E23I    EO2I    EO3I    EO123I -EO23    EO23I  ;
  E2     -E2I    -E12     scal    E23     EO2     E12I   -EI     -E23I   -EO2I    E1      E123   -EO12   -E3      EO      EO23   -E1I    -E123I   EO12I   E3I    -EOI    -EO23I   E13     EO1     EO123  -EO3    -E13I   -EO1I   -EO123I  EO3I    EO13   -EO13I  ;
  E3     -E3I    -E13    -E23     scal    EO3     E13I    E23I   -EI     -EO3I   -E123    E1     -EO13    E2     -EO23    EO      E123I  -E1I     EO13I  -E2I     EO23I  -EOI    -E12    -EO123   EO1     EO2     E12I    EO123I -EO1I   -EO2I   -EO12    EO12I  ;
- EI     0      -E1I    -E2I    -E3I     scal    0      0      0      -EI     -E12I   -E13I   -EO1I   -E23I   -EO2I   -EO3I   0      0      -E1I    0      -E2I    -E3I     E123I  -EO12I  -EO13I  -EO23I  0       E12I    E13I    E23I    EO123I  E123I  ;
+ EI     0      -E1I    -E2I    -E3I     EOI    0      0      0      -EI     -E12I   -E13I   -EO1I   -E23I   -EO2I   -EO3I   0      0      -E1I    0      -E2I    -E3I     E123I  -EO12I  -EO13I  -EO23I  0       E12I    E13I    E23I    EO123I  E123I  ;
  EO1    -EO1I   0       EO12    EO13   0       scal   -EO12I  -EO13I  0      0      0      0      -EO123  0      0       E2      E3     -EO      EO123I 0      0      0      0      0      0      -E23    -EO2    -EO3    0      0       EO23   ;
  EO2    -EO2I   -EO12   0       EO23   0       EO12I   scal   -EO23I  0      0       EO123  0      0      0      0      -E1     -EO123I 0       E3     -EO     0      0      0      0      0       E13     EO1    0      -EO3    0      -EO13   ;
  EO3    -EO3I   -EO13   -EO23   0      0       EO13I   EO23I   scal   0      -EO123  0      0      0      0      0       EO123I -E1     0      -E2     0      -EO     0      0      0      0      -E12    0       EO1     EO2    0       EO12   ;
@@ -1139,48 +1139,6 @@ M = [
  EO23I  0      -EO123I 0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0       scal   0      -E1     ;
  E123I  0      0      0      0      -EO123I 0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0       scal   -EI     ;
  EO123I 0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0       scal   ;
-
-];
-            R = CGA(M*B.m);
-        end
-
-        function R = cdot_(A, B)
- 	    [scal,  EO, E1, E2, E3, EI,  EO1, EO2, EO3, EOI, E12, E13, E1I, E23, E2I, E3I,  EO12, EO13, EO1I, EO23, EO2I, EO3I, E123, E12I, E13I, E23I, EO123, EO12I, EO13I, EO23I, E123I, EO123I] = decompose_(A);
-
-    %% I zero'ed out the first column and most of the diaganol of the inner matrix; however, left the diag entries that were not "scalar"; not sure if that's right.
-M = [
- scal   -EI      E1      E2      E3     -EO     -E1I    -E2I    -E3I     EOI    -E12    -E13    -EO1    -E23    -EO2    -EO3     E12I    E13I    EO1I    E23I    EO2I    EO3I   -E123    EO12    EO13    EO23    E123I  -EO12I  -EO13I  -EO23I   EO123  -EO123I ;
- 0      0       EO1     EO2     EO3    0      -EO1I   -EO2I   -EO3I    EO     -EO12   -EO13   0      -EO23   0      0       EO12I   EO13I  -EO1     EO23I  -EO2    -EO3    -EO123  0      0      0       EO123I -EO12   -EO13   -EO23   0       EO123  ;
- 0      -E1I     0       E12     E13     EO1    -EI     -E12I   -E13I   -EO1I   -E2     -E3      EO     -E123    EO12    EO13    E2I     E3I    -EOI     E123I  -EO12I  -EO13I  -E23    -EO2    -EO3    -EO123   E23I    EO2I    EO3I    EO123I -EO23    EO23I  ;
- 0      -E2I    -E12     0       E23     EO2     E12I   -EI     -E23I   -EO2I    E1      E123   -EO12   -E3      EO      EO23   -E1I    -E123I   EO12I   E3I    -EOI    -EO23I   E13     EO1     EO123  -EO3    -E13I   -EO1I   -EO123I  EO3I    EO13   -EO13I  ;
- 0      -E3I    -E13    -E23     0       EO3     E13I    E23I   -EI     -EO3I   -E123    E1     -EO13    E2     -EO23    EO      E123I  -E1I     EO13I  -E2I     EO23I  -EOI    -E12    -EO123   EO1     EO2     E12I    EO123I -EO1I   -EO2I   -EO12    EO12I  ;
- 0      0      -E1I    -E2I    -E3I     0    0      0      0      -EI     -E12I   -E13I   -EO1I   -E23I   -EO2I   -EO3I   0      0      -E1I    0      -E2I    -E3I     E123I  -EO12I  -EO13I  -EO23I  0       E12I    E13I    E23I    EO123I  E123I  ;
- 0      -EO1I   0       EO12    EO13   0       0      -EO12I  -EO13I  0      0      0      0      -EO123  0      0       E2      E3     -EO      EO123I 0      0      0      0      0      0      -E23    -EO2    -EO3    0      0       EO23   ;
- 0      -EO2I   -EO12   0       EO23   0       EO12I   0      -EO23I  0      0       EO123  0      0      0      0      -E1     -EO123I 0       E3     -EO     0      0      0      0      0       E13     EO1    0      -EO3    0      -EO13   ;
- 0      -EO3I   -EO13   -EO23   0      0       EO13I   EO23I   0      0      -EO123  0      0      0      0      0       EO123I -E1     0      -E2     0      -EO     0      0      0      0      -E12    0       EO1     EO2    0       EO12   ;
- 0      0      -EO1I   -EO2I   -EO3I   0       0      0       0       0      -EO12I  -EO13I  0      -EO23I  0      0      0      0      -E1     0      -E2     -E3      EO123I 0      0      0      0      -E12    -E13    -E23    0       E123   ;
- 0      -E12I   0      0       E123   -EO12    0      0      -E123I   EO12I   0      0      0      0      0      -EO123  -EI     0      0      0      0       EO123I  E3     -EO     0      0      -E3I     EOI    0      0      -EO3     EO3I   ;
- 0      -E13I   0      -E123   0      -EO13    0       E123I  0       EO13I  0       0      0      0       EO123  0      0      -EI     0      0      -EO123I 0      -E2     0      -EO     0       E2I    0       EOI    0       EO2    -EO2I   ;
- 0      0      0      -E12I   -E13I   -EO1I    0      0       0      0      0      0       0      -E123I   EO12I   EO13I  0      0      -EI     0      0      0      0      -E2     -E3      EO123I 0       E2I     E3I    0      -E23     E23I   ;
- 0      -E23I    E123   0      0      -EO23    -E123I  0      0       EO23I  0      0      -EO123   0      0      0      0      0       EO123I -EI     0      0       E1     0      0      -EO     -E1I    0      0       EOI    -EO1     EO1I   ;
- 0      0       E12I   0      -E23I   -EO2I    0      0       0      0      0       E123I  -EO12I  0       0       EO23I  0      0      0      0      -EI     0      0       E1     -EO123I -E3     0      -E1I    0       E3I     E13    -E13I   ;
- 0      0       E13I    E23I   0      -EO3I    0      0       0      0      -E123I  0      -EO13I  0      -EO23I   0      0      0      0      0      0      -EI     0       EO123I  E1      E2     0      0      -E1I    -E2I    -E12     E12I   ;
- 0      -EO12I  0      0       EO123  0        0      0      -EO123I 0      0      0      0        0      0      0       0      0      0      0      0      0      0      0      0      0      -E3      EO     0      0      0      -EO3    ;
- 0      -EO13I  0      -EO123  0      0        0       EO123I 0      0      0      0      0        0      0      0      0       0      0      0      0      0      0      0      0      0       E2     0       EO     0      0       EO2    ;
- 0      0      0      -EO12I  -EO13I  0        0      0      0      0      0      0      0        -EO123I 0      0      0      0       0      0      0      0      0      0      0      0      0       E2      E3     0      0      -E23    ;
- 0      -EO23I   EO123  0      0      0        -EO123I 0      0      0      0      0      0        0      0      0      0      0      0       0      0      0      0      0      0      0      -E1     0      0       EO     0      -EO1    ;
- 0      0       EO12I  0      -EO23I  0        0      0      0      0      0       EO123I 0        0      0      0      0      0      0      0       0      0      0      0      0      0      0      -E1     0       E3     0       E13    ;
- 0      0       EO13I   EO23I  0      0        0      0      0      0      -EO123I 0      0        0      0      0      0      0      0      0      0       0      0      0      0      0      0      0      -E1     -E2     0      -E12    ;
- 0      -E123I  0      0      0       EO123    0      0      0      -EO123I 0      0      0        0      0      0      0      0      0      0      0      0       0      0      0      0      -EI     0      0      0       EO     -EOI    ;
- 0      0      0      0      -E123I   EO12I    0      0      0      0      0      0      0        0      0      -EO123I 0      0      0      0      0      0      0       0      0      0      0      -EI     0      0       E3     -E3I    ;
- 0      0      0       E123I  0       EO13I    0      0      0      0      0      0      0        0       EO123I 0      0      0      0      0      0      0      0      0       0      0      0      0      -EI     0      -E2      E2I    ;
- 0      0      -E123I  0      0       EO23I    0      0      0      0      0      0      -EO123I   0      0      0      0      0      0      0      0      0      0      0      0       0      0      0      0      -EI      E1     -E1I    ;
- 0      -EO123I 0      0      0      0         0      0      0      0      0      0      0        0      0      0      0      0      0      0      0      0      0      0      0      0       0      0      0      0      0      -EO     ;
- 0      0      0      0      -EO123I 0         0      0      0      0      0      0      0        0      0      0      0      0      0      0      0      0      0      0      0      0      0       0      0      0      0      -E3     ;
- 0      0      0       EO123I 0      0         0      0      0      0      0      0      0        0      0      0      0      0      0      0      0      0      0      0      0      0      0      0       0      0      0       E2     ;
- 0      0      -EO123I 0      0      0         0      0      0      0      0      0      0        0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0       0      0      -E1     ;
- 0      0      0      0       0      -EO123I   0      0      0      0      0      0      0        0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0       0      -EI     ;
- 0      0      0      0       0      0         0      0      0      0      0      0      0        0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0       0      ;
 
 ];
             R = CGA(M*B.m);
@@ -2123,7 +2081,6 @@ R = [
                 mx = E23I; my = -E13I; mz = E12I; % not quite sure of sign
                 %len = sqrt(vx*vx+vy*vy+vz*vz)
                 %mx = mx/len; my=my/len; mz=mz/len;
-		%vx,vy,vz
                 %mx,my,mz
                 pgaPc = cross([vx,vy,vz],[mx,my,mz]);
                 pgaPc = pgaPc/(vx*vx+vy*vy+vz*vz);

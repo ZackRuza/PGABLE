@@ -37,7 +37,7 @@ classdef OGA < GA
     %      There are also more advanced operations:
     %         • sqrt(A)                       to compute the square root
     %         • glog(A)                       to compute the geometric log
-    %         • gexp(A)                       to compute the geometric exponent
+    %         • gexp(A)                       to compute the geometric exponential
     %
     %   See also GA, OGA, GAScene.
 
@@ -241,6 +241,11 @@ classdef OGA < GA
         function R = outer_(A, B)
             R = OGA(outerleftexpand_(A)*B.m);
         end
+
+	% For now...
+        function R = cdot_(A, B)
+		R = inner_(A, B);
+	end
 
         function R = inner_(A, B)
             [S1, S2, S3] = OGA.signature();

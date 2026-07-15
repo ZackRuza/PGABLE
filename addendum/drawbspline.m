@@ -19,7 +19,7 @@ if cpf
   plot3(cpx,cpy,cpz,'k-','LineWidth',1.5,'MarkerSize',4);
 end
 hold on
-S = 3000;
+S = 200;
 for i=0:S-1
   t=i/S;
   t = (1-t)*kv(n+1)+t*kv(end-n);
@@ -30,4 +30,7 @@ for i=0:S-1
   z(i+1)=double(ptE.*e3);
 end
 axis equal
+smpls = [x;y;z]'/7*1.2 - [0.6 0.6 0]
+size(smpls)
+max(smpls)
 plot3(x,y,z,varargin{:});

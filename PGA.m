@@ -48,7 +48,7 @@ classdef PGA < GA
     %      There are also more advanced operations:
     %         • sqrt(A)                       compute the square root
     %         • glog(A)                       compute the geometric log
-    %         • gexp(A)                       compute the geometric exponent
+    %         • gexp(A)                       compute the geometric exponential
     %
     %   See also GA, OGA, GAScene.
 
@@ -649,6 +649,11 @@ classdef PGA < GA
                
             R = PGA(M*B.m);
         end
+
+	% Temporary
+        function R = cdot_(A, B)
+		R = inner_(A,B)
+	end
 
         function R = inverse_(A)
 	if 0
