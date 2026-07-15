@@ -529,7 +529,7 @@ classdef PGABLEDraw
                 f = 1;
             end
             
-            rad = sqrt(norm(BV));
+            rad = sqrt(norm(BV))/pi;
             
             
             % Creating points in a circle
