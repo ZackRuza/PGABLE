@@ -30,6 +30,8 @@ classdef OGA < GA
     %         • getz(A)                       to get the z coordinate of an OGA point
     %         • zeroepsilons(A)               to zero-out epsilons (small errors)
     %         • draw(A, varargin)             to draw the multivector
+    %         • DrawBivector(A, B, c)         to draw the bivector spanned by A,B
+    %         • DrawTrivector(A, B, C, c)     to draw the trivector spanned by A,B,C
     %         (See also GAScene for more information on draw calls)
     %         • grade(A, g)                   to select the grade-g component of a multivector
     %         • isgrade(A, g)                 to determine if a multivector is of grade g

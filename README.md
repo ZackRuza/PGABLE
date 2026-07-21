@@ -1,4 +1,4 @@
-# PGABLE V2.2.0
+# PGABLE V2.2.1
 
 PGABLE, Copyright (c) 2024, University of Waterloo  
 Copying, use and development for non-commercial purposes permitted. All rights for commercial use reserved; for more information contact Stephen Mann (smann@uwaterloo.ca).  
