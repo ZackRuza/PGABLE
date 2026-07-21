@@ -15,6 +15,7 @@ classdef CGA < GA
     %         • /  for division               also: divide(A, B)
     %         • ^  for the outer product      also: outer(A, B)
     %         • .* for the inner product      also: inner(A, B)
+    %                                         also: cdot(A, B) for Hestenes inner product
     %         • == for equality               also: eq(A, B)
     %         • ~= for inequality             also: neq(A, B)
     %      Additonally, there are basic operations:
