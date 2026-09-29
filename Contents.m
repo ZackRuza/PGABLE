@@ -1,6 +1,6 @@
 %   PGABLE is a Matlab toolkit for geometric algebra.
 %
-%   Version V2.2.1
+%   Version V2.2.2
 %
 %   Most of the core code was written by Zachary Leger (zcjleger@uwaterloo.ca).
 %   The tutorial was largely written by Stephen Mann (smann@uwaterloo.ca).
