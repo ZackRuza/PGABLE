@@ -15,6 +15,7 @@ classdef PGA < GA
     %         • /  for division               also: divide(A, B)
     %         • ^  for the outer product      also: outer(A, B)
     %         • .* for the inner product      also: inner(A, B)
+    %                                         also: cdot(A, B) for Hestenes inner product
     %         • == for equality               also: eq(A, B)
     %         • ~= for inequality             also: neq(A, B)
     %      Additonally, there are basic operations:
@@ -653,6 +654,59 @@ classdef PGA < GA
 	% Temporary
         function R = cdot_(A, B)
 		R = inner_(A,B)
+            [S0, S1, S2, S3] = PGA.signature();
+            S01 = S0*S1;
+            S02 = S0*S2;
+            S03 = S0*S3;
+            S12 = S1*S2;
+            S13 = S1*S3;
+            S23 = S2*S3;
+            S012 = S01*S2;
+            S013 = S01*S3;
+            S023 = S02*S3;
+            S123 = S12*S3;
+            S0123 = S012 * S3; 
+
+            [scal, E0, E1, E2, E3, E01, E02, E03, E12, E13, E23, E012, E013, E023, E123, E0123] = decompose_(A);
+
+            C0 = S0*E0;
+            C1 = S1*E1;
+            C2 = S2*E2;
+            C3 = S3*E3;
+            C01 = S01*E01;
+            C02 = S02*E02;
+            C03 = S03*E03;
+            C12 = S12*E12;
+            C13 = S13*E13;
+            C23 = S23*E23;
+            C012 = S012*E012;
+            C013 = S013*E013;
+            C023 = S023*E023;
+            C123 = S123*E123;
+            C0123 = S0123*E0123;
+
+            M = [scal   C0    C1    C2    C3  -C01  -C02  -C03  -C12  -C13  -C23  -C012 -C013 -C023 -C123  C0123;
+                E0     0    E01   E02   E03   -C1   -C2   -C3  -E012  -E013 -E023  -E12  -E13  -E23  -E0123  C123;
+                E1   -C01    0    C12   C13    C0    0     0    -C2   -C3  -C123  C02   C03    0   -C23  -C023;
+                E2   -C02  -C12    0    C23    0     C0    0     C1   C123  -C3  -C01    0    C03   C13   C013
+                E3   -C03  -C13  -C23    0     0     0     C0  -C123   C1    C2    0   -C01  -C02  -C12  -C012;
+
+                E01    0     0    E012  E013   0     0     0     0     0  -E0123   C2    C3    0     0    -C23;
+                E02    0   -E012   0    E023   0     0     0     0    E0123  0    -C1    0     C3    0     C13;
+                E03    0   -E013 -E023   0     0     0     0   -E0123  0     0     0    -C1   -C2    0    -C12;
+                E12   C012   0     0    C123   0     0  -C0123   0     0     0     C0    0     0     C3   -C03;
+                E13   C013   0   -C123   0     0   C0123   0     0     0     0     0     C0    0    -C2    C02;
+                E23   C023  C123   0     0  -C0123   0     0     0     0     0     0     0     C0    C1   -C01;
+
+                E012   0     0     0   E0123   0     0     0     0     0     0     0     0     0     0    -C3;
+                E013   0     0  -E0123   0     0     0     0     0     0     0     0     0     0     0     C2;
+                E023   0   E0123   0     0     0     0     0     0     0     0     0     0     0     0    -C1;
+                E123 -C0123  0     0     0     0     0     0     0     0     0     0     0     0     0     C0;
+
+               E0123   0     0     0     0     0     0     0     0     0     0     0     0     0     0    0  ];
+               
+            R = PGA(M*B.m);
+		
 	end
 
         function R = inverse_(A)
@@ -1183,7 +1237,6 @@ classdef PGA < GA
             end
             if GAisa(A, 'plane')
                 if isempty(c)
-                    % TODO: make default colour of plane changable.
                     c = 'g';
                 end
 

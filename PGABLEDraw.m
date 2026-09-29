@@ -410,7 +410,6 @@ classdef PGABLEDraw
 
             hold on
 
-            % TODO: Can currently only draw normalized planes. Perhaps should visualize non-unitness somehow.
             beta = sqrt(norm(plane));
             plane = normalize(plane);
 
@@ -494,11 +493,12 @@ classdef PGABLEDraw
                     ab = (1-yper)*((1-xper)*p1t + xper*p2t) + yper*((1-xper)*p4t + xper*p3t);
                     % Arrow tip
                     at = gapoint(ab.getx() + nsv.getx(), ab.gety() + nsv.gety(), ab.getz() + nsv.getz(), PGA);
-                    h = [h PGABLEDraw.plotline({ab, at}, 'Color', 'k')];
+%                    h = [h PGABLEDraw.plotline({ab, at}, 'Color', 'k')];
+                    h = [h PGABLEDraw.plotline({ab, at}, 'Color', [0.8,0.8,0.8])];
                     am = r*ab + (1-r)*at;
                     af1 = gapoint(am.getx() + nad.getx(), am.gety() + nad.gety(), am.getz() + nad.getz(), PGA);
                     af2 = gapoint(am.getx() - nad.getx(), am.gety() - nad.gety(), am.getz() - nad.getz(), PGA);
-                    h = [h PGABLEDraw.plotline({af1, at, af2}, 'Color', 'k')];
+                    h = [h PGABLEDraw.plotline({af1, at, af2}, 'Color', [0.8,0.8,0.8])];
                 end
             end
 
